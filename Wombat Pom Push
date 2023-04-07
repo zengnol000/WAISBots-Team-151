@@ -1,0 +1,38 @@
+#include <kipr/wombat.h>
+#include <functions.h>
+
+int main()
+{
+    
+    //wait_for_light(5);
+    shut_down_in(116);
+    
+    // open claw & lower claw arm
+    servo(3,1000,2,-1);
+    servo(2,450,2,1);
+    
+    // go forward a while
+    while (analog(4) < 3400){
+        motor(left,1200);
+        motor(right,1200);
+    }
+    drive(200,750);
+    
+    //turn right
+    turnRight(1000,750);
+    
+    //follow left of line forward
+    cmpc(right);
+    while (gmpc(right) < 7500){
+    	if (analog(0) > 3200){
+            motor(left,20);
+            motor(right,80); }
+        else if (analog(0) <= 3200){
+            motor(left,80);
+            motor(right,20); }
+    }
+    
+    turnRight(940,750);
+    
+    return 0;
+}
